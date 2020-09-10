@@ -41,6 +41,23 @@ def get_max_in_range(my_sound, start, end):
 
 
 # To Do: Define your set_extremes function below this line.
+def set_extremes(sound):
+    max_left_val = (get_max_in_range(sound, 0, len(sound))//4)
+    max_left_val_neg = (get_max_in_range(sound, 0, len(sound))//-4)
+    for i in range(len(sound)):
+        sample = sound[i]
+        sample.right = 0
+        left_val = sample.left
+        if(left_val > 3000):
+            left_val = max_left_val
+        elif(left_val < -3000):
+            left_val = max_left_val_neg
+        sample.left = left_val
+    return sample
+
+
+
+
 
 
 jolly = sound.load_sound("jolly.wav")
@@ -50,3 +67,8 @@ jolly.display()
 
 
 # To Do: Add new test code after this line.
+extreme_laugh = sound.copy(jolly)
+set_extremes(extreme_laugh)
+extreme_laugh.play()
+sound.wait_until_played()
+extreme_laugh.display()
